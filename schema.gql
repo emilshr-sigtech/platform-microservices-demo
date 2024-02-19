@@ -5,9 +5,9 @@
 directive @upper on FIELD_DEFINITION
 
 """Workspace"""
-type Workspace {
+type Workspaces {
   id: ID!
-  description: String!
+  description: String
   name: String!
   originalTemplate: String!
   giteaRepositoryUrl: String!
@@ -17,11 +17,24 @@ type Workspace {
 }
 
 type Query {
-  workspace(id: String!): Workspace!
+  workspace(id: String!): Workspaces!
+  workspaceCount: Float!
+  workspaces(sort: WorkspaceSortableFields! = NAME, order: SortOrder! = ASC, page: Int! = 0, limit: Int! = 20): [Workspaces!]!
+}
+
+enum WorkspaceSortableFields {
+  NAME
+  DESCRIPTION
+  STATUS
+}
+
+enum SortOrder {
+  ASC
+  DESC
 }
 
 type Mutation {
-  createWorkspace(createWorkspaceData: CreateWorkspaceInput!): Workspace!
+  createWorkspace(createWorkspaceInput: CreateWorkspaceInput!): Workspaces!
   removeWorkspace(id: String!): Boolean!
 }
 

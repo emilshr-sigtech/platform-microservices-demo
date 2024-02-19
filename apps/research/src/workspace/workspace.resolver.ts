@@ -1,9 +1,9 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-
 import { Workspace } from './models/workspace.model';
 import { WorkspaceService } from './workspace.service';
 import { CreateWorkspaceInput } from './dto/create-workspace.input';
 import { NotFoundException } from '@nestjs/common';
+import { WorkspacesArgs } from './dto/workspaces.input';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 @Resolver(() => Workspace)
 export class WorkspaceResolver {
@@ -11,23 +11,31 @@ export class WorkspaceResolver {
 
   @Query(() => Workspace)
   async workspace(@Args('id') id: string): Promise<Workspace> {
-    const recipe = await this.workspaceService.findOneById(id);
-    if (!recipe) {
-      throw new NotFoundException(id);
-    }
-    return recipe;
+    return this.workspaceService.getById(id);
+  }
+
+  @Query(() => Number, { name: 'workspaceCount' })
+  async count(): Promise<number> {
+    const workspacesCount = await this.workspaceService.count();
+    return workspacesCount;
+  }
+
+  @Query(() => [Workspace])
+  async workspaces(
+    @Args() workspacesArgs: WorkspacesArgs
+  ): Promise<Workspace[]> {
+    return this.workspaceService.getAll(workspacesArgs);
   }
 
   @Mutation(() => Workspace)
   async createWorkspace(
-    @Args('createWorkspaceData') createWorkspaceData: CreateWorkspaceInput
+    @Args('createWorkspaceInput') createWorkspaceData: CreateWorkspaceInput
   ): Promise<Workspace> {
-    const recipe = await this.workspaceService.create(createWorkspaceData);
-    return recipe;
+    return this.workspaceService.create(createWorkspaceData);
   }
 
   @Mutation(() => Boolean)
-  async removeWorkspace(@Args('id') id: string) {
-    return this.workspaceService.remove(id);
+  async removeWorkspace(@Args('id') workspaceId: string) {
+    return this.workspaceService.remove(workspaceId);
   }
 }

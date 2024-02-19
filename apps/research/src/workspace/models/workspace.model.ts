@@ -31,41 +31,41 @@ export class Workspace extends Model<
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4,
   })
-  @Field((type) => ID)
+  @Field(() => ID)
   declare id: CreationOptional<string>;
 
   @Column({
     type: DataType.STRING,
   })
-  @Field({ nullable: false })
+  @Field({ nullable: true })
   declare description: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  @Field({ nullable: false })
+  @Field()
   declare name: string;
 
   @Column({
     type: DataType.UUID,
     allowNull: false,
   })
-  @Field({ nullable: false })
+  @Field()
   declare originalTemplate: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  @Field({ nullable: false })
+  @Field()
   declare giteaRepositoryUrl: string;
 
   @Column({
     type: DataType.UUID,
     allowNull: false,
   })
-  @Field({ nullable: false })
+  @Field()
   declare ownerId: string;
 
   @HasMany(() => WorkspacePermission)
@@ -76,13 +76,13 @@ export class Workspace extends Model<
     type: DataType.STRING,
     allowNull: false,
   })
-  @Field({ nullable: false })
+  @Field()
   declare status: string;
 
   @Column({
     type: DataType.UUID,
     allowNull: false,
   })
-  @Field({ nullable: false })
+  @Field()
   declare createdBy: string;
 }
