@@ -1,0 +1,24 @@
+{
+  "name": "runner",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/runner/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "runner:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "runner:build:development"
+        },
+        "production": {
+          "buildTarget": "runner:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

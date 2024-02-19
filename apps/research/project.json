@@ -1,0 +1,24 @@
+{
+  "name": "research",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/research/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "research:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "research:build:development"
+        },
+        "production": {
+          "buildTarget": "research:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
