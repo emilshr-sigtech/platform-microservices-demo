@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@platform-microservices/logging": ["libs/logging/src/index.ts"],
+      "@platform-microservices/nest-core": ["libs/nest-core/src/index.ts"],
+      "@platform-microservices/utils": ["libs/utils/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
